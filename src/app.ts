@@ -1,5 +1,3 @@
-function hello<T>(param: T) {
-  console.log(`Hello ${param}`);
-}
+import linkedList from './LinkedList';
 
-hello('Algo');
+linkedList();
