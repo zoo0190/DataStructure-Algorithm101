@@ -1,5 +1,6 @@
 interface NodeHandler<T> {
-  add: (value: T) => void;
+  readonly size: number;
+  addLast: (value: T) => void;
   search: () => void;
 }
 
@@ -11,23 +12,53 @@ type MyNode<T> = {
 class MyNodeImple<T> implements MyNode<T> {
   data;
   next;
-  constructor(data: T, next: MyNode<T> | null) {
+  constructor(data: T, next: MyNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
 }
 
 class NodeHandlerImple<T> implements NodeHandler<T> {
-  constructor(private head: MyNode<T> | null = null) {}
+  private head;
+  constructor(value: T, private _size: number = 1) {
+    this.head = new MyNodeImple(value, null);
+  }
 
-  add(value: T) {}
+  get size() {
+    return this._size;
+  }
 
-  search() {}
+  addLast(value: T) {
+    if (this.size === 0) {
+      this.head = new MyNodeImple(value, null);
+      this._size++;
+      return;
+    } else {
+      let node = this.head;
+      while (node.next) {
+        node = node.next;
+      }
+      node.next = new MyNodeImple(value);
+      this._size++;
+    }
+  }
+
+  search() {
+    let node = this.head;
+    while (node) {
+      console.log(node.data);
+      if (node.next === null) {
+        break;
+      } else {
+        node = node.next;
+      }
+    }
+  }
 }
 
 export function linkedListInit() {
-  const firstNode = new MyNodeImple(1, null);
-  const secondNode = new MyNodeImple(2, null);
-  firstNode.next = secondNode;
-  console.log(firstNode);
+  const a = new NodeHandlerImple(1);
+  a.addLast(2);
+  a.addLast(4);
+  a.search();
 }
