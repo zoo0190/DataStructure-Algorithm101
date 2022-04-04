@@ -1,19 +1,13 @@
-export default function linkedList() {
-  type NodeType = {
-    data: string;
-    next?: NodeType | null;
-  };
+type MyNode<T> = {
+  data: T;
+  next: MyNode<T> | null;
+};
 
-  class Node {
-    data: string = '';
-    next?: NodeType;
-
-    constructor(data: string, next?: NodeType) {
-      this.data = data;
-      this.next = next;
-    }
+export class MyNodeImple<T> implements MyNode<T> {
+  data;
+  next;
+  constructor(data: T, next: MyNode<T> | null) {
+    this.data = data;
+    this.next = next;
   }
-
-  const node1 = new Node('abc');
-  console.log(node1);
 }
