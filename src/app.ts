@@ -1,4 +1,3 @@
-import { MyNodeImple } from './LinkedList';
+import { linkedListInit } from './LinkedList';
 
-const firstNode = new MyNodeImple(1, null);
-console.log(firstNode);
+linkedListInit();
