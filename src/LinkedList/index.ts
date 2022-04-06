@@ -19,7 +19,7 @@ class MyNodeImple<T> implements MyNode<T> {
 }
 
 class NodeHandlerImple<T> implements NodeHandler<T> {
-  private head;
+  private head: MyNode<T> | null;
   constructor(value: T, private _size: number = 1) {
     this.head = new MyNodeImple(value, null);
   }
@@ -35,6 +35,7 @@ class NodeHandlerImple<T> implements NodeHandler<T> {
       return;
     } else {
       let node = this.head;
+      if (node === null) return;
       while (node.next) {
         node = node.next;
       }
@@ -54,11 +55,43 @@ class NodeHandlerImple<T> implements NodeHandler<T> {
       }
     }
   }
+
+  remove(value: T) {
+    if (this.head === null || this.size === 0) {
+      console.log('No Data!!');
+      return;
+    }
+
+    if (this.head.next === null) {
+      this.head = null;
+      this._size--;
+      return;
+    }
+
+    if (this.head.data === value) {
+      this.head = this.head.next;
+      this._size--;
+      return;
+    } else {
+      let node = this.head;
+      while (node.next) {
+        if (node.next.data === value) {
+          node.next = node.next.next;
+          this._size--;
+          return;
+        } else {
+          node = node.next;
+        }
+      }
+    }
+  }
 }
 
 export function linkedListInit() {
-  const a = new NodeHandlerImple(1);
-  a.addLast(2);
-  a.addLast(4);
-  a.search();
+  const myNode = new NodeHandlerImple(0);
+  for (let num of [...Array(5).keys()]) {
+    myNode.addLast(num + 1);
+  }
+  myNode.remove(0);
+  myNode.search();
 }
