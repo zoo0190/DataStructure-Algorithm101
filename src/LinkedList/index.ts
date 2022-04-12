@@ -2,6 +2,7 @@ interface NodeHandler<T> {
   readonly size: number;
   addLast: (value: T) => void;
   search: () => void;
+  remove: (value: T) => void;
 }
 
 type MyNode<T> = {
@@ -92,6 +93,6 @@ export function linkedListInit() {
   for (let num of [...Array(5).keys()]) {
     myNode.addLast(num + 1);
   }
-  myNode.remove(0);
+  myNode.remove(2);
   myNode.search();
 }
