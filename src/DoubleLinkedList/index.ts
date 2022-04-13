@@ -1,6 +1,7 @@
-interface NodeHandler<T> {
+interface NodeHandler<T, K> {
   add: (value: T) => void;
   search: () => void;
+  addPrev: (value: T, prevNode: T) => void;
 }
 
 type MyNode<T> = {
@@ -58,6 +59,16 @@ class NodeHandlerImple<T> implements NodeHandler<T> {
       } else {
         node = node.next;
       }
+    }
+  }
+
+  addPrev(value: T, prevNode: T) {
+    if (this.head === null) {
+      this.head = new MyNodeImple(value);
+      return;
+    } else {
+      let node = this.tail;
+      while (node.data !== prevNode) {}
     }
   }
 }
